@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>鼠标移过，改变图片路径</title>
+	<style type="text/css">
+		*{
+			margin: 0px;
+			padding: 0px;	
+		}
+		body{
+			background: #000000;
+		}
+		.album{
+			width: 220px;
+			overflow: hidden;
+			margin: 10px auto;
+			border-radius: 5px;
+			background: #fff;
+			padding: 5px 0px 2px 3px;
+		}
+		.album li{
+			float: left;
+			margin: 0px 0px 0px 3px;
+			list-style: none;
+		}
+		.album li img{
+			width: 50px;
+			height: 50px;
+			border-radius: 5px;
+		}
+		li.first{
+			position: relative;
+		}
+		.album li.first img{
+			width: 156px;
+			height: 156px;
+		}
+		li.first div {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 156px;
+			height: 156px;
+			display: none;
+			opacity: 0.5;
+			filter: alpha(opacity=50);
+			background: #fff url(http://fgm.cc/learn/lesson2/img/loading.gif) 50% 50% no-repeat;
+		}
+	</style>
+
+	<script type="text/javascript">
+		window.onload = function(){
+			var album = document.getElementsByClassName('album')[0];
+			var img = album.getElementsByTagName('img');
+			var oDiv = document.getElementsByTagName("div")[1];
+
+			console.log(img);
+			for(var i=1;i<img.length;i++){
+				img[i].index = i;
+				img[i].onmouseover = function(){
+					/**
+					 * 最佳写法
+					 * var img = new Image();
+					 * img.src = oImg[0].src = this.src.replace(
+					 * /small/,"big");
+					 * oDiv.style.display = "block";
+					 * img.complete ? oDiv.style.display = "none" :
+					 * (oImg[0].onload = function()
+					 * {oDiv.style.display = "none"})
+					 */
+					img[0].src = "http://fgm.cc/learn/lesson2/img/big_"+this.index+".jpg";
+					oDiv.style.display = "block";
+					img[0].complete?oDiv.style.display = "none":oDiv.style.display = "display";
+				}
+			}
+		}
+	</script>
+
+</head>
+<body>
+	<div class="album">
+		<ul>
+			<li class="first"><img src="http://fgm.cc/learn/lesson2/img/big_1.jpg"><div></div></li>
+			<li><a href="javascript:;"><img src="http://fgm.cc/learn/lesson2/img/small_1.jpg"></a></li>
+			<li><a href="javascript:;"><img src="http://fgm.cc/learn/lesson2/img/small_2.jpg"></a></li>
+			<li><a href="javascript:;"><img src="http://fgm.cc/learn/lesson2/img/small_3.jpg"></a></li>
+			<li><a href="javascript:;"><img src="http://fgm.cc/learn/lesson2/img/small_4.jpg"></a></li>
+			<li><a href="javascript:;"><img src="http://fgm.cc/learn/lesson2/img/small_5.jpg"></a></li>
+			<li><a href="javascript:;"><img src="http://fgm.cc/learn/lesson2/img/small_6.jpg"></a></li>
+			<li><a href="javascript:;"><img src="http://fgm.cc/learn/lesson2/img/small_7.jpg"></a></li>
+			<li><a href="javascript:;"><img src="http://fgm.cc/learn/lesson2/img/small_8.jpg"></a></li>
+			<li><a href="javascript:;"><img src="http://fgm.cc/learn/lesson2/img/small_9.jpg"></a></li>
+			<li><a href="javascript:;"><img src="http://fgm.cc/learn/lesson2/img/small_10.jpg"></a></li>
+			<li><a href="javascript:;"><img src="http://fgm.cc/learn/lesson2/img/small_11.jpg"></a></li>
+		</ul>
+	</div>
+</body>
+</html>

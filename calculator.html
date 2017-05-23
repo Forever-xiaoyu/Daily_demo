@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>网页计算器</title>
+	<style type="text/css">
+		*{
+			margin: 0px;
+			padding: 0px;
+		}
+		body{
+			font: 700 24px/1.5 Arial;
+		}
+		a{
+			color: #fff;
+			text-decoration: none;
+		}
+		.cal{
+			width: 300px;
+			overflow: hidden;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			margin: 10px auto;
+			background: #000;
+			position: relative;
+		}
+		.calHead{
+			width: 100%;
+			height: 20px;
+		}
+		.calDisplay{
+			width: 290px;
+			height: 84px;
+			background: url(http://fgm.cc/learn/lesson3/img/inputBg.jpg) repeat-x;
+			font: 700 50px/84px Arial;
+			text-align: right;
+			padding: 0px 5px;
+		}
+		.cal ul{
+			position: relative;
+			overflow: hidden;
+			background: url(http://fgm.cc/learn/lesson3/img/bg.jpg);
+			padding: 0 0 17px 8px;
+		}
+		.cal ul li{
+			float: left;
+			width: 63px;
+			height: 41px;
+			margin: 17px 10px 0 0;
+			list-style: none;
+		}
+		.cal ul li a{
+			display: block;
+			width: 63px;
+			height: 41px;
+			line-height: 41px;
+			text-align: center;
+			background: url(http://fgm.cc/learn/lesson3/img/btn.png) no-repeat;
+		}
+		.cal ul li a:hover{
+			background-position: -63px 0;
+		}
+		.cal ul li.btn-1 a{
+			background-position: 0px -41px;
+		}
+		.cal ul li.btn-1 a:hover{
+			background-position: -63px -41px;
+		}
+		.cal ul li.btn-2{
+			position: absolute;
+			top: 174px;
+			right: 0px;
+			height: 99px;
+		}
+		.cal ul li.btn-3{
+			width: 136px;
+		}
+		.cal ul li.btn-2 a{
+			height: 99px;
+			line-height: 99px;
+			background-position: 0 -164px;
+		}
+		.cal ul li.btn-2 a:hover{
+			background-position: -63px -164px;
+		}
+		.cal ul li.btn-3 a {
+			width: 136px;
+			background-position: 0 -82px;
+		}
+		.cal ul li.btn-3 a:hover{
+			background-position: 0px -123px;
+		}
+		input{
+			position: absolute;
+			top: 20px;
+			background: none;
+			border: 0;
+			width: 280px;
+			padding: 3px 15px 0px 5px;
+			text-align: right;
+			/*border: 1px solid #000;*/
+		}
+	</style>
+
+	<script type="text/javascript">
+		window.onload = function(){
+			var number = document.getElementsByTagName('a');
+			var display = document.getElementsByClassName('calDisplay')[0];
+			var input = document.getElementById('formula');
+			var result = 0;
+			var s = false;
+
+			for(var i=0;i<number.length;i++){
+
+				number[i].onclick = function(){
+					/*console.log(typeof(this.innerHTML));
+					console.log(typeof(display.innerHTML));
+					console.log(display.innerHTML+this.innerHTML);*/
+					if(this.innerHTML=="c"){
+						display.innerHTML = "0";
+						input.value = "";
+					}else {
+						switch(this.innerHTML){
+							case '%':
+								count("%"); 
+								break;
+							case '+':
+								count("+");
+								break;
+							case '-':
+								count("-");
+								break;
+							case '×':
+								count("*");
+								break;
+							case '÷':
+								count("/");
+								break;
+							case '=':
+								s || (input.value += display.innerHTML);
+								// console.log(typeof(input.value)+input.value);
+								display.innerHTML = 
+								eval(input.value.replace(/\%\/\*\-\+/,''));
+								//或者eval(input.value);
+								// console.log(typeof(display.innerHTML)+display.innerHTML);
+								s = true;
+								break;
+							case ".":
+								if(display.innerHTML.search(/[\.\%\/\*\-\+]/) != -1)
+									break;
+							default: 
+								s && (input.value = 0, display.innerHTML = "", s = false);
+								display.innerHTML =(display.innerHTML+this.innerHTML).replace(/^[0\%\/\*\-\+](\d)/,"$1");
+								//console.log(typeof(display.innerHTML));
+						}
+					}
+				}
+
+				function count(a){
+
+					if(s)
+					{
+						input.value = display.innerHTML + a;
+						display.innerHTML = a;	
+						s = false;
+					}
+
+
+					/[\%\/\*\-\+]$/.test(display.innerHTML) || (input.value += display.innerHTML);
+					display.innerHTML = a;
+
+					/[\%\/\*\-\+]$/.test(input.value) || (input.value += display.innerHTML);
+
+					input.value = input.value.slice(-1) != a ? input.value.replace(/.$/,a) : input.value
+					/**
+					 * arrayObject.slice(start,end)
+					 * 参数	描述
+					 * start
+					 * 必需。规定从何处开始选取。如果是负数，那么它规定从数组尾部开始算起的位置。也就是说，-1
+					 * 指最后一个元素，-2 指倒数第二个元素，以此类推。
+					 * end	可选。规定从何处结束选取。该参数是数组片断结束处的数组下标。如果没有指定该参数，那么切
+					 * 的数组包含从
+					 * start到数组结束的所有元素。如果这个参数是负数，那么它规定的是从数组尾部开始算起的元素。
+					 */
+
+				}
+			}
+		}
+	</script>
+
+</head>
+<body>
+	<div class="cal">
+		<div class="calHead"></div>
+		<div class="calDisplay">0</div>
+		<ul>
+			<li class="btn-1"><a href="javascript:void(0)">c</a></li>
+			<li class="btn-1"><a href="javascript:void(0)">%</a></li>
+			<li class="btn-1"><a href="javascript:void(0)">÷</a></li>
+			<li class="btn-1"><a href="javascript:void(0)">×</a></li>
+			<li><a href="javascript:void(0)">7</a></li>
+			<li><a href="javascript:void(0)">8</a></li>
+			<li><a href="javascript:void(0)">9</a></li>
+			<li class="btn-1"><a href="javascript:void(0)">-</a></li>
+			<li><a href="javascript:void(0)">4</a></li>
+			<li><a href="javascript:void(0)">5</a></li>
+			<li><a href="javascript:void(0)">6</a></li>
+			<li class="btn-1"><a href="javascript:void(0)">+</a></li>
+			<li><a href="javascript:void(0)">1</a></li>
+			<li><a href="javascript:void(0)">2</a></li>
+			<li><a href="javascript:void(0)">3</a></li>
+			<li class="btn-2"><a href="javascript:void(0)">=</a></li>
+			<li class="btn-3"><a href="javascript:void(0)">0</a></li>
+			<li><a href="javascript:void(0)">.</a></li>
+		</ul>
+		<input id="formula" type="text" readonly="readonly" value="">
+	</div>
+</body>
+</html>

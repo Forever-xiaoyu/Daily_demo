@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>简易网页时钟</title>
+	<style type="text/css">
+		*{
+			margin: 0px;
+			padding: 0px;
+		}
+		body{
+			font: 17px Arial;
+		}
+		#clock{
+			width: 300px;
+			overflow: hidden;
+			padding: 20px 10px;
+			margin: 10px auto;
+			background: #000000;
+			color: #fff;
+			text-align: center;
+		}
+		span{
+			width: 80px;
+			padding: 5px 10px;
+			margin: 0 10px;
+			border: 2px solid #b4b4b4;
+			background: #fbfbfb;
+			line-height: 2;
+			color: #000;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+
+			var clock = document.getElementById('clock');
+			var span = document.getElementsByTagName('span');
+			setInterval(getTimes,1000);
+			getTimes();		//防止页面刚加载时间显示为空
+
+			function getTimes(){
+				var date = new Date();
+				var date2 = [date.getHours(),date.getMinutes(),date.getSeconds()];
+				for(var i in date2){
+					span[i].innerHTML = format(date2[i]);
+				}
+			}
+
+			function format(a){
+				//console.log(typeof(a));	number
+				return a.toString().replace(/^(\d)&/,"0&1");
+			}
+
+		}
+	</script>
+</head>
+<body>
+	<div id="clock">
+		<span></span>点
+		<span></span>分
+		<span></span>秒
+	</div>
+</body>
+</html>

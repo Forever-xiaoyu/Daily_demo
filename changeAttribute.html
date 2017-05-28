@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>函数传参，改变Div任意属性值</title>
+	<style type="text/css">
+		*{
+			margin: 0px;
+			padding: 0px;
+		}
+		.box{
+			width: 230px;
+			overflow: hidden;
+			margin: 10px auto;
+			font: 12px/1.5 Tahoma;
+		}
+		input#value{
+			margin-top: 10px;
+		}
+		button{
+			margin-top: 10px;
+			padding: 2px 4px; 
+		}
+		button:nth-of-type(1){
+			margin-left: 47px;
+		}
+		.sty{
+			width: 180px;
+			height: 180px;
+			background: #000;
+			color: #fff;
+			padding: 10px 8px;
+			box-sizing: border-box;
+			margin-left: 44px;
+			margin-top: 15px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var div = document.getElementsByClassName("sty")[0];
+			var btn1 = document.getElementsByTagName("button")[0];
+			var btn2 = document.getElementsByTagName("button")[1];
+			btn1.onclick = function(){
+				var name = document.getElementById("name").value;
+				var value = document.getElementById("value").value;
+				console.log(name+" "+value);
+				div.style[name] = value;
+			}
+			btn2.onclick = function(){
+				div.style = "";
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="box">
+		<div class="property">
+			属性名：<input type="text" id="name" value="background">
+			属性值：<input type="text" id="value" value="blue">
+			<button>确定</button>
+			<button>重置</button>
+		</div>
+		<div class="sty">
+			在上方输入框输入"属性名"及"属性值"，点击确定按钮查看效果
+		</div>
+	</div>
+</body>
+</html>

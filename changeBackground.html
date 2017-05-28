@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>实例第二课02</title>
+	<style type="text/css">
+		*{
+			padding: 0px;
+			margin: 0px;
+		}
+		body{
+			background:#FDD;
+		}
+		.con{
+			width: 500px;
+			margin:0 auto;
+			overflow: hidden;
+		}
+		.o{
+			overflow: hidden;
+			zoom:1;
+		}
+		.o li{
+			float:left;
+			margin:10px 5px;
+			width:6px;
+			height:6px;
+			list-style: none;
+			border-style: solid;
+			border-width: 4px;
+			cursor: pointer;
+		}
+		.current{
+			background: #fff !important;
+		}
+		#red{
+			border-color: red;
+			background: red;
+		}
+		#green{
+			border-color: green;
+			background: green;
+		}
+		#black{
+			border-color: black;
+			background: black;
+		}
+		#t{
+			background: red;
+			overflow: hidden;
+		}
+		#t li{
+			float:left;
+			list-style: none;
+			width: 82px;
+		    line-height: 25px;
+		    text-align: center;
+			border-right: 1px solid #fff;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div class="con">
+		<ul class="o" id="skin">
+			<li id="red" class="current"></li>
+			<li id="green" class=""></li>
+			<li id="black" class=""></li>
+		</ul>
+		<ul id="t" class="">
+			<li>新闻</li>
+			<li>娱乐</li>
+			<li>体育</li>
+			<li>电影</li>
+			<li>音乐</li>
+			<li>旅游</li>
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+		var back = document.body;
+		var btn = 
+		document.getElementById("skin").getElementsByTagName("li");
+		var ul = document.getElementById("t");
+		for(var i=0;i<btn.length;i++){
+			btn[i].index = i;
+			btn[i].onclick = function(){
+
+				console.log(this.index);
+				for(var p in btn){
+					btn[p].className = "";
+					this.className = "current";
+				}
+				
+				switch(this.index){
+					case 0:
+					back.style.background = "#FDD";
+					ul.style.background = "red";
+					break;
+					case 1:
+					back.style.background = "#A3C5A8";
+					ul.style.background = "green";
+					break;
+					case 2:
+					back.style.background = "#ccc";
+					ul.style.background = "#000";
+					break;
+				}
+			}
+		}
+
+	</script>
+</body>
+</html>

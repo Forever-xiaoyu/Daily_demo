@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>CSS3</title>
+	<style type="text/css">
+		*{margin: 0px;padding: 0px;}
+		body{
+			perspective: 1000;
+		}
+		#book{
+			width: 140px;
+			height: 200px;
+			perspective: 1000;
+			transform: rotateX(40deg);
+			transform-style: preserve-3d;
+			margin: 150px auto;
+		}
+		#page1,#page2,#page3,#page4{
+			width: 140px;
+			height:200px;
+			border: 1px solid #ddd;
+			position: absolute;
+			text-align: right;
+			line-height: 370px;
+			padding-right: 5px;
+			color: #fff;
+			/*transition: all 2s;*/
+			transform-origin: 0 0;
+			transform-style: preserve-3d;
+		}
+		#page1{
+			background: #0ad;
+			transform: rotateY(-16deg);
+			animation: page1 11s;
+		}
+		#page2{
+			background: orange;
+			transform: rotateY(-12deg);
+			animation: page2 8s 1s;
+		}
+		#page3{
+			background: red;
+			transform: rotateY(-7deg);
+			animation: page3 5s 2s;
+		}
+		#page4{
+			background: #000;
+		}
+		@keyframes page1{
+			0%{transform: rotateY(-16deg);}
+			50%{transform: rotateY(-160deg);}
+			100%{transform: rotateY(-16deg);}
+		}
+		@keyframes page2{
+			0%{transform: rotateY(-12deg);}
+			50%{transform: rotateY(-150deg);}
+			100%{transform: rotateY(-12deg);}
+		}
+		@keyframes page3{
+			0%{transform: rotateY(-7deg);}
+			50%{transform: rotateY(-140deg);}
+			100%{transform: rotateY(-7deg);}
+		}
+	</style>
+</head>
+<body>
+	<div id="book">
+		<div id="page1">1</div>
+		<div id="page2">2</div>
+		<div id="page3">3</div>
+		<div id="page4">4</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>图片列表，鼠标移入/移出改变图片透明度</title>
+	<style type="text/css">
+		*{
+			margin: 0px;
+			padding: 0px;
+			list-style-type: none;
+		}
+		ul.imgList{
+			width: 700px;
+			overflow: hidden;
+			border: 1px solid #000;
+			margin: 10px auto;
+		}
+		ul.imgList li{
+			float: left;
+			border: 1px solid #ddd;
+			margin: 5px 5px;
+			cursor: crosshair;
+		}
+		ul.imgList li img{
+			opacity: 0.4;
+			filter: alpha(opacity=40);
+		}
+	</style>
+
+	<script type="text/javascript">
+		/*
+			最佳方法：
+		 	
+			window.onload = function ()
+			{
+				var oLi = document.getElementsByTagName("li");	
+				for (var i = 0; i < oLi.length; i++)
+				{
+					oLi[i].onmouseover = function ()
+					{
+						this.className = "current"	
+					};
+					oLi[i].onmouseout = function ()
+					{
+						this.className = ""	
+					}
+				}
+			}
+
+		 */
+		window.onload = function(){
+			var img = document.getElementsByTagName("li");
+			var imgList = document.getElementsByTagName("img");
+			console.log(img);
+			console.log(imgList);
+			for(var i=0;i<img.length;i++){
+				img[i].index = i;
+				img[i].onmouseover = function(){
+					console.log(imgList[this.index]);
+					imgList[this.index].style.opacity = 1;
+					imgList[this.index].style.transform = "scale(1.1)";
+				}
+				img[i].onmouseout = function(){
+					// console.log(imgList[this.index]);
+					imgList[this.index].style = "";
+				}
+			}
+		}
+	</script>
+
+</head>
+<body>
+	<ul class="imgList">
+		<li><img src="http://fgm.cc/learn/lesson2/img/1.jpg"></li>
+		<li><img src="http://fgm.cc/learn/lesson2/img/2.jpg"></li>
+		<li><img src="http://fgm.cc/learn/lesson2/img/3.jpg"></li>
+		<li><img src="http://fgm.cc/learn/lesson2/img/4.jpg"></li>
+		<li><img src="http://fgm.cc/learn/lesson2/img/5.jpg"></li>
+		<li><img src="http://fgm.cc/learn/lesson2/img/6.jpg"></li>
+		<li><img src="http://fgm.cc/learn/lesson2/img/7.jpg"></li>
+		<li><img src="http://fgm.cc/learn/lesson2/img/8.jpg"></li>
+		<li><img src="http://fgm.cc/learn/lesson2/img/9.jpg"></li>
+		<li><img src="http://fgm.cc/learn/lesson2/img/10.jpg"></li>
+	</ul>
+</body>
+</html>

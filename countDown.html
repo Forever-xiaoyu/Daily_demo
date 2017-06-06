@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>倒计时时钟</title>
+	<style type="text/css">
+		*{
+			margin: 0px;
+			padding: 0px;
+		}
+		body{
+			font: 20px Arial;
+		}
+		#clock{
+			width: 300px;
+			padding: 20px 0px;
+			overflow: hidden;
+			background: #000000;
+			margin: 10px auto;
+			color: #ffffff;
+			text-align: center;
+		}
+		#clock span{
+			display: static;
+			padding: 2px 5px;
+			border: 2px solid #ccc;
+			background: #fff;
+			color: #000;
+			margin: 0px 10px;
+		}
+		input{
+			background: url('http://fgm.cc/learn/lesson3/img/btn-1.png') no-repeat;
+			border: 0;
+			width: 283px;
+			height: 50px;
+			cursor: pointer;
+			margin-top: 20px;
+		}
+		.cancel{
+			background-position: 0 -50px;
+		}
+
+	</style>
+		
+	<script type="text/javascript">
+
+	/*
+	  window.onload = function ()
+	  {
+	  	var oCountDown = document.getElementById("countdown");	
+	  	var aInput = oCountDown.getElementsByTagName("input")[0];
+	  	var timer = null;
+
+	  	aInput.onclick = function ()
+	  	{
+	  		this.className == "" ? (timer = setInterval(updateTime, 1000), updateTime()) : (clearInterval(timer));
+	  		this.className = this.className == '' ? "cancel" : '';	
+	  	};
+
+	  	function format(a)
+	  	{
+	  		return a.toString().replace(/^(\d)$/,'0$1')
+	  	}
+
+	  	function updateTime ()
+	  	{
+	  		var aSpan = oCountDown.getElementsByTagName("span");
+	  		var oRemain = aSpan[0].innerHTML.replace(/^0/,'') * 60 + parseInt(aSpan[1].innerHTML.replace(/^0/,''));
+	  		if(oRemain <= 0)
+	  		{
+	  			clearInterval(timer);
+	  			return
+	  		}
+	  		oRemain--;
+	  		aSpan[0].innerHTML = format(parseInt(oRemain / 60));
+	  		oRemain %= 60;
+	  		aSpan[1].innerHTML = format(parseInt(oRemain));
+	  	}
+	  }
+	*/
+	 
+
+		window.onload = function(){
+
+			var clock = document.getElementById('clock');
+			var btn = clock.getElementsByTagName('input')[0];
+			var time = clock.getElementsByTagName('span');
+			var minute,sec;
+			var Timing = null;
+
+			btn.onclick = function(){
+				btn.className = btn.className == "cancel"?"":"cancel";
+				//console.log(btn.className);
+				if(btn.className=="cancel"){
+					timing();
+					Timing = setInterval(timing,1000);
+				}else{
+					clearInterval(Timing);
+				}
+			}
+
+			function timing(){
+				sec = parseInt(time[1].innerHTML);
+				minute = parseInt(time[0].innerHTML);
+				sec --;
+				if(sec < 0){
+					sec = 59;
+					minute --;
+				}else if(sec==0&&minute==0){
+					clearInterval(Timing);
+					btn.className = "";
+				}
+				time[0].innerHTML = minute<10?("0"+minute):minute;
+				time[1].innerHTML = sec<10?("0"+sec):sec;
+			}
+
+		}
+	</script>
+
+</head>
+<body>
+	<div id="clock">
+		<span>00</span>分钟
+		<span>12</span>秒
+		<input type="button" value="" class="">
+	</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			window.onload = function(){
+				var Input = document.getElementById('input');
+				var label = document.getElementById('label');
+				var content;
+				
+				//添加键盘事件
+				function inputValue(){
+					content = Input.value;
+					label.innerHTML = Input.value;
+				}
+				
+				Input.addEventListener('keyup',inputValue,false);
+			}
+		</script>
+	</head>
+	<body>
+		<input placeholder="edit content" id="input" value="" />
+		<br><br>输入值:<label id="label"></label>
+	</body>
+</html>

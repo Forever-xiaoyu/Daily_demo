@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>JSON</title>
+	</head>
+	<body>
+		<div id="xiaoyu"></div>
+		<div id="xiaoyu_2"></div>
+		<div id="xiaoyu2"></div>
+		<div id="xiaoyu3"></div>
+		<script>
+			
+			//创建JSON对象
+			var content = [
+				{
+					"title" : "TITLE",
+					"text" : "TEXT",
+					toJSON:function(){
+						return this.title;
+					}
+				},
+				{
+					"author" : [
+						"xiaoyu",
+						"naruto"
+					],
+					"year":2011,
+					"releaseDate":new Date(2008,1,11)
+				}
+			];
+			
+			var jsonC = JSON.stringify(content);
+			var bookC = JSON.parse(jsonC,function(key,value){
+				if(key=="releaseDate"){
+					return new Date();
+				}else{
+					return value;
+				}
+			});
+			
+			var xiaoyu = document.getElementById("xiaoyu");
+			var xiaoyu_2 = document.getElementById("xiaoyu_2");
+			var xiaoyu2 = document.getElementById("xiaoyu2");
+			var xiaoyu3 = document.getElementById("xiaoyu3");
+			
+			xiaoyu.innerHTML = jsonC;
+			console.log(bookC[1].author);
+			console.log(bookC[1].year);
+			console.log(bookC[1].releaseDate);
+			console.log(bookC[1].releaseDate.getFullYear());
+			
+		</script>
+	</body>
+</html>

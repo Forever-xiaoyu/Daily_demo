@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.button{ 
+				 width: 100px;
+				 height: 40px; 
+				 border: 1px solid #ddd; 
+				 border-radius: 5px; 
+				 cursor: pointer; 
+				 transition: all 1s ease; 
+				 transform: translateX(0px); 
+				 opacity: 1; 
+				 } 
+		</style>
+		
+		<script>
+			window.onload = function(){
+				var b1 = document.getElementById('button1'); 
+				var b2 = document.getElementById('button2'); 
+				
+				//define css style for b1 and b2 
+				function changeButton(element){ 
+					var one = b1; 
+					var two = b2; 
+					if(element!=b2){ 
+						one = b2; 
+						two = b1; 
+						two.style.transform = "translateX(0px)"; 
+						one.style.transform = "translateX(0px)"; 
+					}else{ 
+						two.style.transform = "translateX(100px)";
+						one.style.transform = "translateX(100px)"; 
+					} 
+					two.style.opacity = 0; 
+					one.style.opacity = 1; 
+				}
+				
+				//define click event of b1 
+				b1.onclick = function(){ 
+					changeButton(this); 
+				}
+				
+				//define click event of b2 
+				b2.onclick = function(){ 
+					changeButton(this); 
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<button id="button1" class="button" style="opacity: 0;">button1</button> 
+		<button id="button2" class="button">button2</button>
+	</body>
+
+</html>

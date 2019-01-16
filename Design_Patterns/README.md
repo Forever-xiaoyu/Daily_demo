@@ -283,17 +283,18 @@ function CreatePerson(name,age,sex) {
     }
     return obj;
 }
-var p1 = new CreatePerson("longen",'28','男');
-var p2 = new CreatePerson("tugenhua",'27','女');
-console.log(p1.name); // longen
-console.log(p1.age);  // 28
-console.log(p1.sex);  // 男
-console.log(p1.sayName()); // longen
+var p1 = new CreatePerson("xiaoyu",'18','男');
+var p2 = new CreatePerson("xiaoli",'20','女');
 
-console.log(p2.name);  // tugenhua
-console.log(p2.age);   // 27
-console.log(p2.sex);   // 女
-console.log(p2.sayName()); // tugenhua
+console.log(p1.name); 
+console.log(p1.age);  
+console.log(p1.sex);  
+console.log(p1.sayName()); 
+
+console.log(p2.name);   
+console.log(p2.age);   
+console.log(p2.sex);   
+console.log(p2.sayName()); 
 
 // 返回都是object 无法识别对象的类型 不知道他们是哪个对象的实列
 console.log(typeof p1);  // object

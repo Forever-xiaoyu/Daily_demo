@@ -162,7 +162,7 @@ document.getElementById("Id").onclick = function(){
 }
 ```
 
-我们看到如上代码，创建div的代码和创建iframe代码很类似，我们现在可以考虑把通用的代码分离出来，使代码变成完全抽象，我们现在可以编写一套代码封装在getInstance函数内，如下代码：
+如上代码，创建div的代码和创建iframe代码很类似，现在可以把通用的代码分离出来，使代码变成完全抽象，编写一套代码封装在getInstance函数内，如下代码：
 ```
 var getInstance = function(fn) {
     var result;
@@ -171,9 +171,9 @@ var getInstance = function(fn) {
     }
 };
 ```
-如上代码：我们使用一个参数fn传递进去，如果有result这个实例的话，直接返回，否则的话，当前的getInstance函数调用fn这个函数，是this指针指向与这个fn这个函数；之后返回被保存在result里面；现在我们可以传递一个函数进去，不管他是创建div也好，还是创建iframe也好，总之如果是这种的话，都可以使用getInstance来获取他们的实例对象；
+如上代码：使用一个参数fn传递进去，如果有result这个实例的话，直接返回，否则的话，当前的getInstance函数调用fn这个函数，是this指针指向与这个fn这个函数；之后返回被保存在result里面；现在我们可以传递一个函数进去，不管是创建div也好，还是创建iframe也好，总之如果是这种的话，都可以使用getInstance来获取他们的实例对象；
 
-如下测试创建iframe和创建div的代码如下：
+如下代码：
 ```
 // 创建div
 var createWindow = function(){
@@ -183,12 +183,7 @@ var createWindow = function(){
     document.body.appendChild(div);
     return div;
 };
-// 创建iframe
-var createIframe = function(){
-    var iframe = document.createElement("iframe");
-    document.body.appendChild(iframe);
-    return iframe;
-};
+
 // 获取实例的封装代码
 var getInstance = function(fn) {
     var result;
@@ -196,17 +191,12 @@ var getInstance = function(fn) {
         return result || (result = fn.call(this,arguments));
     }
 };
+
 // 测试创建div
 var createSingleDiv = getInstance(createWindow);
 document.getElementById("Id").onclick = function(){
     var win = createSingleDiv();
     win.style.display = "block";
-};
-// 测试创建iframe
-var createSingleIframe = getInstance(createIframe);
-document.getElementById("Id").onclick = function(){
-    var win = createSingleIframe();
-    win.src = "http://cnblogs.com";
 };
 ```
 
@@ -227,9 +217,9 @@ var singleMode = (function(){
     };
 })();
 ```
-   模块模式使用了一个返回对象的匿名函数。在这个匿名函数内部，先定义了私有变量和函数，供内部函数使用，然后将一个对象字面量作为函数的值返回，返回的对象字面量中只包含可以公开的属性和方法。这样的话，可以提供外部使用该方法；由于该返回对象中的公有方法是在匿名函数内部定义的，因此它可以访问内部的私有变量和函数。
+模块模式使用了一个返回对象的匿名函数。在这个匿名函数内部，先定义了私有变量和函数，供内部函数使用，然后将一个对象字面量作为函数的值返回，返回的对象字面量中只包含可以公开的属性和方法。这样的话，可以提供外部使用该方法；由于该返回对象中的公有方法是在匿名函数内部定义的，因此它可以访问内部的私有变量和函数。
 
-我们什么时候使用模块模式？
+什么时候使用模块模式？
 
 如果我们必须创建一个对象并以某些数据进行初始化，同时还要公开一些能够访问这些私有数据的方法，那么我们这个时候就可以使用模块模式了。
 
@@ -323,119 +313,6 @@ console.log(p1 instanceof Object); // true
 父类只对创建过程中的一般性问题进行处理，这些处理会被子类继承，子类之间是相互独立的，具体的业务逻辑会放在子类中进行编写。
 
 父类就变成了一个抽象类，但是父类可以执行子类中相同类似的方法，具体的业务逻辑需要放在子类中去实现；比如我现在开几个自行车店，那么每个店都有几种型号的自行车出售。我们现在来使用工厂模式来编写这些代码;
-
-父类的构造函数如下：
-```
-// 定义自行车的构造函数
-var BicycleShop = function(){};
-BicycleShop.prototype = {
-    constructor: BicycleShop,
-    /*
-    * 买自行车这个方法
-    * @param {model} 自行车型号
-    */
-    sellBicycle: function(model){
-        var bicycle = this.createBicycle(mode);
-        // 执行A业务逻辑
-        bicycle.A();
-
-        // 执行B业务逻辑
-        bicycle.B();
-
-        return bicycle;
-    },
-    createBicycle: function(model){
-        throw new Error("父类是抽象类不能直接调用，需要子类重写该方法");
-    }
-};
-```
-上面是定义一个自行车抽象类来编写工厂模式的实列，定义了createBicycle这个方法，但是如果直接实例化父类，调用父类中的这个createBicycle 方法,会抛出一个error，因为父类是一个抽象类，他不能被实列化，只能通过子类来实现这个方法，实现自己的业务逻辑，下面我们来定义子类，我们学会如何使用工厂模式重新编写这个方法，首先我们需要继承父类中的成员，然后编写子类 ;如下代码：
-```
-// 定义自行车的构造函数
-var BicycleShop = function(name){
-    this.name = name;
-    this.method = function(){
-        return this.name;
-    }
-};
-BicycleShop.prototype = {
-    constructor: BicycleShop,
-    /*
-     * 买自行车这个方法
-     * @param {model} 自行车型号
-    */
-    sellBicycle: function(model){
-            var bicycle = this.createBicycle(model);
-            // 执行A业务逻辑
-            bicycle.A();
-
-            // 执行B业务逻辑
-            bicycle.B();
-
-            return bicycle;
-        },
-        createBicycle: function(model){
-            throw new Error("父类是抽象类不能直接调用，需要子类重写该方法");
-        }
-    };
-    // 实现原型继承
-    function extend(Sub,Sup) {
-        //Sub表示子类，Sup表示超类
-        // 首先定义一个空函数
-        var F = function(){};
-
-        // 设置空函数的原型为超类的原型
-        F.prototype = Sup.prototype; 
-
-        // 实例化空函数，并把超类原型引用传递给子类
-        Sub.prototype = new F();
-                    
-        // 重置子类原型的构造器为子类自身
-        Sub.prototype.constructor = Sub;
-                    
-        // 在子类中保存超类的原型,避免子类与超类耦合
-        Sub.sup = Sup.prototype;
-
-        if(Sup.prototype.constructor === Object.prototype.constructor) {
-            // 检测超类原型的构造器是否为原型自身
-            Sup.prototype.constructor = Sup;
-        }
-    }
-    var BicycleChild = function(name){
-        this.name = name;
-// 继承构造函数父类中的属性和方法
-        BicycleShop.call(this,name);
-    };
-    // 子类继承父类原型方法
-    extend(BicycleChild,BicycleShop);
-// BicycleChild 子类重写父类的方法
-BicycleChild.prototype.createBicycle = function(){
-    var A = function(){
-        console.log("执行A业务操作");    
-    };
-    var B = function(){
-        console.log("执行B业务操作");
-    };
-    return {
-        A: A,
-        B: B
-    }
-}
-var childClass = new BicycleChild("龙恩");
-console.log(childClass);
-```
-实例化子类，然后打印出该实例, 如下截图所示：
-![](factory.png)
-
-```
-console.log(childClass.name);  // 龙恩
-
-// 下面是实例化后 执行父类中的sellBicycle这个方法后会依次调用父类中的A
-// 和B方法；A方法和 B方法依次在子类中去编写具体的业务逻辑。
-
-childClass.sellBicycle("mode"); // 打印出  执行A业务操作和执行 B业务操作
-```
-上面只是"龙恩"自行车这么一个型号的，如果需要生成其他型号的自行车的话，可以编写其他子类，工厂模式最重要的优点是：可以实现一些相同的方法，这些相同的方法我们可以放在父类中编写代码，那么需要实现具体的业务逻辑，那么可以放在子类中重写该父类的方法，去实现自己的业务逻辑；使用专业术语来讲的话有 2点：第一：弱化对象间的耦合，防止代码的重复。在一个方法中进行类的实例化，可以消除重复性的代码。第二：重复性的代码可以放在父类去编写，子类继承于父类的所有成员属性和方法，子类只专注于实现自己的业务逻辑。
 
 ## 观察者模式 ##
 观察者模式，也称作"发布-订阅 (Publish/Subscribe)模式"，是 js 设计模式中比较常用的模式之一。
